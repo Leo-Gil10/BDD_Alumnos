@@ -1,0 +1,60 @@
+#estructura de datos
+alumno = []
+
+#POO
+class alumnos:
+    def __init__(self, nombre, edad, matricula):
+        self.nombre = nombre
+        self.edad = edad
+        self.matricula = matricula
+
+        
+#Agregamos datos
+alumnos.append(alumno("leonardo", 15, "78"))
+alumnos.append(alumno("peña", 16, "$25"))
+alumnos.append(alumno("heri", 17, "$30"))
+
+
+# Generar contenido HTML
+contenido = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Alumnos</title>
+    <style>
+        body { font-family: Comfortaa; text-align: center; background: #D3E2E3; }
+        table { margin: auto; border-collapse: collapse; }
+        th, td { padding: 10px; border: 3px solid black; }
+        th { background: #EDAB9F; color: #C45B47; }
+        td { background: #FBECEA; color: solid black; }
+    </style>
+</head>
+<body>
+    <h1>Lista de alumnos</h1>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Matricula</th>
+        </tr>
+"""
+# CICLO (programación estructurada)
+for alumno in alumnos:
+    contenido += f"""
+        <tr>
+            <td>{alumno.nombre}</td>
+            <td>{alumno.edad}</td>
+            <td>{alumno.matricula}</td>
+        </tr>
+    """
+
+contenido += """
+    </table>
+</body>
+</html>
+"""
+# Crear archivo index.html
+with open("page.html", "w", encoding="utf-8") as archivo:
+    archivo.write(contenido)
+    
+print("Archivo page.html generado correctamente")
