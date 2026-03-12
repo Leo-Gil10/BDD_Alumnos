@@ -1,16 +1,21 @@
 #Estructura de Datos
-gente = []
+from base_datos import add_person, list_people, find_person
 
 #POO
-class personas:
+class Persona:
     def __init__(self, nombre, edad):
         self.nombre = nombre
         self.edad = edad
 
-# Agregamos datos
-gente.append(personas(input("Nombre 1: "), int(input("Edad 1: "))))
-gente.append(personas(input("Nombre 2: "), int(input("Edad 2: "))))
-gente.append(personas(input("Nombre 3: "), int(input("Edad 3: "))))
+# carga la información existente de la "base de datos" JSON
+gente = [Persona(p["nombre"], p["edad"]) for p in list_people()]
+
+# pedir tres registros nuevos y guardarlos en la base de datos
+for i in range(1, 4):
+    nombre = input(f"Nombre {i}: ")
+    edad = int(input(f"Edad {i}: "))
+    add_person(nombre, edad)
+    gente.append(Persona(nombre, edad))
 
 # Generar contenido HTML
 contenido = """
@@ -52,3 +57,12 @@ with open("index.html", "w", encoding="utf-8") as archivo:
     archivo.write(contenido)
 
 print("Archivo index.html generado correctamente.")
+
+# ejemplo de búsqueda usando la base de datos
+consulta = input("\nBuscar persona por nombre (o presione ENTER para saltar): ")
+if consulta:
+    resultado = find_person(consulta)
+    if resultado:
+        print(f"Encontrado: {resultado['nombre']} - {resultado['edad']} años")
+    else:
+        print("No se encontró ninguna persona con ese nombre.")
